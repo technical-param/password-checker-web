@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Password Checker — Param</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Password Checker</h1>
+      <p class="subtitle">By <strong>Param</strong> — Cyber Security Enthusiast</p>
+    </header>
+
+    <main>
+      <form method="post">
+        <label for="password">Enter password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Check</button>
+      </form>
+
+      {% if result %}
+      <section class="result">
+        <h2>Result</h2>
+        <p>Score: {{ result.score }}/10 ({{ result.label }})</p>
+        <p>Entropy: {{ result.entropy }} bits</p>
+        <p>Breach check: 
+          {% if result.breach is none %}Failed
+          {% elif result.breach == 0 %}No matches
+          {% else %}Found {{ result.breach }}
+          {% endif %}
+        </p>
+
+        <h3>Reasons</h3>
+        <ul>{% for r in result.reasons %}<li>{{ r }}</li>{% endfor %}</ul>
+
+        <h3>Suggestions</h3>
+        <ul>{% for t in result.tips %}<li>{{ t }}</li>{% endfor %}</ul>
+      </section>
+      {% endif %}
+    </main>
+
+    <footer>
+      <p>GitHub: <a href="https://github.com/technical-param/password-checker-web" target="_blank">technical-param/password-checker-web</a></p>
+      <p>Contact: technicalparam@outlook.com | +91 9860466672</p>
+    </footer>
+  </div>
+</body>
+</html>
